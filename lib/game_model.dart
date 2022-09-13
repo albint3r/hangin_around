@@ -7,29 +7,34 @@ class GameModel {
 
   List secretWords = [];
   Map WordsAndIndex = {};
-  Map currentWordsAndIndex = {};
   String guessWord = '';
   String guessWordInGame = '';
   String currentSelectedLetter = '';
   bool isGameOver = false;
   bool playerWin = false;
+  int remainingTurns = 0;
 
 
-  GameModel (this.secretWords);
 
-  void addLettersToWordInGame(Map lettersLocation) {
-
+  GameModel (this.secretWords) {
+    createGame();
   }
 
-  bool checkGameOver() {
+  bool hasGuessTheWord() {
     /*Return True if the game is Over*/
     return guessWord == guessWordInGame;
+  }
+
+  bool hasLose() {
+    /*Return True if the game is Over*/
+    return remainingTurns == 0;
   }
 
   void createGame() {
     /*Create a new match*/
     // Start settings / init
     selectSecretWord();
+    setRemainingTurns();
     setStartLetters();
     createGuessWordInGame();
   }
@@ -77,6 +82,12 @@ class GameModel {
     }
   }
 
+  void setRemainingTurns() {
+    /* Set the total turn to guess the word. This is the double of the length
+    of the guessWord */
+    remainingTurns = ((guessWord.length * 2) * .70).round();
+  }
+
   Map getLettersLocation(String letter) {
     /* Get the location of the Guess letter in a Dictionary / Maps */
     Map letterLocation = {letter: []};
@@ -96,5 +107,31 @@ class GameModel {
       return guessWord.contains(letter);
     } return false;
   }
+
+  void updateWordsAndIndex(Map lettersLoc) {
+    /* Update the values of the index and letter of the guess word*/
+    for(int i in lettersLoc.values.toList()[0]) {
+      WordsAndIndex[i] = lettersLoc.keys.toList()[0];
+    }
+  }
+
+  void updateGuessWordInGame() {
+    guessWordInGame = ''; // Delete the last word to update with the new
+    int guessWordLength = guessWord.length;
+    for(int i = 0; i < guessWordLength; i++ ) {
+      // Add word by word to create the guessWord.
+      //If not have a value it would put a _ otherwise a letter of the dict
+      if(WordsAndIndex.containsKey(i)) {
+        guessWordInGame += WordsAndIndex[i];
+      } else {
+        guessWordInGame += '_';
+      }
+    }
+  }
+
+  void updateRemainingTurns() {
+    remainingTurns -= 1;
+  }
+
 
 }
