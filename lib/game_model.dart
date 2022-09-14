@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:dart_tuto/words_creator.dart';
 
 
+
 Random random = Random(); // Create random objet to use in the class
 
 class GameModel {
@@ -18,7 +19,7 @@ class GameModel {
 
 
 
-  GameModel (this.secretWords, this.wordCreator) {
+  GameModel (this.wordCreator) {
     createGame();
   }
 
@@ -40,6 +41,7 @@ class GameModel {
   void createGame() {
     /*Create a new match*/
     // Start settings / init
+    setSecretWords();
     selectSecretWord();
     setRemainingTurns();
     setStartLetters();
@@ -70,8 +72,7 @@ class GameModel {
   void selectSecretWord() {
     /* Create a Random Integer/Index to select a random word inside a list.
   This will be considered the random word.  */
-    int randomIndex = random.nextInt(secretWords.length);
-    guessWord = secretWords[randomIndex].toLowerCase();
+    guessWord = wordCreator.word;
   }
 
   void setStartLetters() {
@@ -87,6 +88,11 @@ class GameModel {
         }
       }
     }
+  }
+
+  void setSecretWords() {
+    /*Set the secret Words List. From this will be chosen the guessWord. */
+    secretWords = wordCreator.getAllWordsList();
   }
 
   void setRemainingTurns() {

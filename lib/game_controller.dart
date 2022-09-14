@@ -5,8 +5,8 @@ import 'package:dart_tuto/game_model.dart';
 import 'package:dart_tuto/words_creator.dart';
 
 
-WordsCreator wordCreator = WordsCreator(r'C:\Users\albin\IdeaProjects\dart_tuto\dictionary_words.js');
-GameModel model = GameModel(wordCreator.getAllWordsList(), wordCreator);
+WordsCreator wordCreator = WordsCreator(r'statics\english_dictionary.js');
+GameModel model = GameModel(wordCreator);
 
 String playerSelectLetter() {
   print('Please Select a Single Letter: ');
@@ -18,6 +18,7 @@ void play() {
 
   bool matchOn = true;
   showStartInstruction();
+  showWordDefinition(model.wordCreator.definition);
   showCurrentStateWordInGame(model.guessWordInGame);
 
   while(matchOn) {

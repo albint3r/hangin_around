@@ -9,6 +9,14 @@ void showCurrentStateWordInGame(String guessWordInGame) {
   print('Current word solved at the moment: $guessWordInGame');
 }
 
+void showWordDefinition(String definition) {
+  print('This is the definition of the word:');
+  print('------------------------------------');
+  print(definition);
+  print('------------------------------------\n');
+
+}
+
 void showYouWinTheGame(String guessWordInGame, int remainingTurns) {
   print('-----------------------------------------');
   print('Wooww! That was amazing, you win the game');
