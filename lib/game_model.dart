@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dart_tuto/words_creator.dart';
 
 
 Random random = Random(); // Create random objet to use in the class
@@ -6,18 +7,24 @@ Random random = Random(); // Create random objet to use in the class
 class GameModel {
 
   List secretWords = [];
-  Map WordsAndIndex = {};
+  Map wordsAndIndex = {};
   String guessWord = '';
   String guessWordInGame = '';
   String currentSelectedLetter = '';
   bool isGameOver = false;
   bool playerWin = false;
   int remainingTurns = 0;
+  WordsCreator wordCreator;
 
 
 
-  GameModel (this.secretWords) {
+  GameModel (this.secretWords, this.wordCreator) {
     createGame();
+  }
+
+  @override
+  String toString() {
+    return 'GameModel(guessWord= $guessWord, guessWordInGame= $guessWordInGame), remainingTurns= $remainingTurns)';
   }
 
   bool hasGuessTheWord() {
@@ -41,13 +48,13 @@ class GameModel {
 
   void createGuessWordInGame() {
     /*Create the guess word adding '_' if is not letter in that space, an
-    a letter in there is any in the 'WordsAndIndex' */
+    a letter in there is any in the 'wordsAndIndex' */
     int guessWordLength = guessWord.length;
     for(int i = 0; i < guessWordLength; i++ ) {
       // Add word by word to create the guessWord.
       //If not have a value it would put a _ otherwise a letter of the dict
-      if(WordsAndIndex.containsKey(i)) {
-        guessWordInGame += WordsAndIndex[i];
+      if(wordsAndIndex.containsKey(i)) {
+        guessWordInGame += wordsAndIndex[i];
       } else {
         guessWordInGame += '_';
       }
@@ -68,15 +75,15 @@ class GameModel {
   }
 
   void setStartLetters() {
-    /* Fill the attribute 'WordsAndIndex' with the index an the word
+    /* Fill the attribute 'wordsAndIndex' with the index an the word
     in that space. This will help to create the 'guessWordInGame' */
     int totalWordsToSelect = getTotalWordsToSelect();
     for(int i = 0; i < totalWordsToSelect; i++) {
-      while (WordsAndIndex.length != totalWordsToSelect) {
+      while (wordsAndIndex.length != totalWordsToSelect) {
         var randomIndex = random.nextInt(guessWord.length - 1);
-        // If the
-        if (!WordsAndIndex.containsKey(randomIndex)) {
-          WordsAndIndex[randomIndex] = guessWord[randomIndex];
+        // If NOT exist the key value in the index and words add it!
+        if (!wordsAndIndex.containsKey(randomIndex)) {
+          wordsAndIndex[randomIndex] = guessWord[randomIndex];
         }
       }
     }
@@ -111,7 +118,7 @@ class GameModel {
   void updateWordsAndIndex(Map lettersLoc) {
     /* Update the values of the index and letter of the guess word*/
     for(int i in lettersLoc.values.toList()[0]) {
-      WordsAndIndex[i] = lettersLoc.keys.toList()[0];
+      wordsAndIndex[i] = lettersLoc.keys.toList()[0];
     }
   }
 
@@ -121,8 +128,8 @@ class GameModel {
     for(int i = 0; i < guessWordLength; i++ ) {
       // Add word by word to create the guessWord.
       //If not have a value it would put a _ otherwise a letter of the dict
-      if(WordsAndIndex.containsKey(i)) {
-        guessWordInGame += WordsAndIndex[i];
+      if(wordsAndIndex.containsKey(i)) {
+        guessWordInGame += wordsAndIndex[i];
       } else {
         guessWordInGame += '_';
       }

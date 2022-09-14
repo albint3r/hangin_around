@@ -2,19 +2,19 @@ import 'dart:io';
 import 'package:dart_tuto/game_view.dart';
 
 import 'package:dart_tuto/game_model.dart';
-import 'dart:io';
+import 'package:dart_tuto/words_creator.dart';
 
-List<String> secretWords = ['Murcielago', 'Nuclear', 'Regueton'];
 
-GameModel model = GameModel(secretWords);
+WordsCreator wordCreator = WordsCreator(r'C:\Users\albin\IdeaProjects\dart_tuto\dictionary_words.js');
+GameModel model = GameModel(wordCreator.getAllWordsList(), wordCreator);
 
-String? playerSelectLetter() {
+String playerSelectLetter() {
   print('Please Select a Single Letter: ');
-  return stdin.readLineSync();
+  return stdin.readLineSync()!;
 }
 
 
-void gameLogic() {
+void play() {
 
   bool matchOn = true;
   showStartInstruction();
@@ -23,7 +23,7 @@ void gameLogic() {
   while(matchOn) {
     // Player select guess letter
     // Check if the letter exist and the index location
-    model.updateWordsAndIndex(model.getLettersLocation(playerSelectLetter()!));
+    model.updateWordsAndIndex(model.getLettersLocation(playerSelectLetter()));
     model.updateGuessWordInGame();
     // Check if the player guess the word, if is true the game is over
     // and the player win.
@@ -40,4 +40,9 @@ void gameLogic() {
     showRemainingTurns(model.remainingTurns);
   }
 
+}
+
+void other() {
+  print(model);
+  print(model.wordCreator.getAllWordsList());
 }
