@@ -13,6 +13,7 @@ class GameModel {
   String guessWordInGame = '';
   String currentSelectedLetter = '';
   bool isGameOver = false;
+  bool isAnswerOk = false;
   bool playerWin = false;
   int remainingTurns = 0;
   WordsCreator wordCreator;
@@ -104,6 +105,7 @@ class GameModel {
   Map getLettersLocation(String letter) {
     /* Get the location of the Guess letter in a Dictionary / Maps */
     Map letterLocation = {letter: []};
+    print(isLetterInGuessWord(letter));
     if(isLetterInGuessWord(letter)) {
       for (int i = 0; i < guessWord.length; i++) {
         if (guessWord[i] == letter) {
@@ -111,18 +113,21 @@ class GameModel {
         }
       }
     }
+    print('------------------------');
+    print(isLetterInGuessWord(letter));
+    print(letterLocation);
     return letterLocation;
   }
 
   bool isLetterInGuessWord(String letter) {
     /* Check if contains the letter and is only one letter  */
-    if(letter.length < 2) {
+    if(letter.length < 2) { // check if is an individual letter
       return guessWord.contains(letter);
     } return false;
   }
 
   void updateWordsAndIndex(Map lettersLoc) {
-    /* Update the values of the index and letter of the guess word*/
+    /* Update the values of the index and letter of the guess word */
     for(int i in lettersLoc.values.toList()[0]) {
       wordsAndIndex[i] = lettersLoc.keys.toList()[0];
     }

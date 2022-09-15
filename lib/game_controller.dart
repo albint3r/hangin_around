@@ -39,9 +39,9 @@ void play() {
   while(matchOn) {
     // Player select guess letter
     // Check if the letter exist and the index location
-    model.updateWordsAndIndex(model.getLettersLocation(playerSelectLetter()));
+    Map letterLocation = model.getLettersLocation(playerSelectLetter());
+    model.updateWordsAndIndex(letterLocation);
     model.updateGuessWordInGame();
-    model.updateRemainingTurns();
     // Check if the player guess the word, if is true the game is over
     // and the player win.
     if(model.hasGuessTheWord()){
