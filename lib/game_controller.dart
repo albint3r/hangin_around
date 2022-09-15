@@ -5,7 +5,7 @@ import 'package:dart_tuto/game_model.dart';
 import 'package:dart_tuto/words_creator.dart';
 
 
-WordsCreator wordCreator = WordsCreator(r'statics\english_dictionary.js');
+WordsCreator wordCreator = WordsCreator(r'statics/english_dictionary.js');
 GameModel model = GameModel(wordCreator);
 
 String playerSelectLetter() {
@@ -19,7 +19,7 @@ String askTryAgain() {
 }
 
 void playAgain() {
-  wordCreator = WordsCreator(r'statics\english_dictionary.js');
+  wordCreator = WordsCreator(r'statics/english_dictionary.js');
   model = GameModel(wordCreator);
   showStartInstruction();
   showWordDefinition(model.wordCreator.definition);
