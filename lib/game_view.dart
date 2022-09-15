@@ -17,6 +17,12 @@ void showWordDefinition(String definition) {
 
 }
 
+void showDefinitionLink(String guessWord) {
+  print('https://www.oxfordlearnersdictionaries.com/us/definition/english/${guessWord.toLowerCase()}_1?q=${guessWord.toLowerCase()}');
+  print('https://www.urbandictionary.com/define.php?term=${guessWord.toLowerCase()}');
+  print('https://www.google.com/search?q=${guessWord.toLowerCase()}+meaning');
+}
+
 void showYouWinTheGame(String guessWordInGame, int remainingTurns) {
   print('-----------------------------------------');
   print('Wooww! That was amazing, you win the game');

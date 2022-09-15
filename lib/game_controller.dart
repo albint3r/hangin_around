@@ -47,11 +47,13 @@ void play() {
     if(model.hasGuessTheWord()){
       showYouWinTheGame(model.guessWordInGame, model.remainingTurns);
       matchOn = false;
+      showDefinitionLink(model.guessWord);
 
     }
     if(model.hasLose()) {
       showYouLoseTheGame(model.guessWord, model.guessWordInGame);
       matchOn = false;
+      showDefinitionLink(model.guessWord);
 
     }
     // If the game don't end print the current state of the game

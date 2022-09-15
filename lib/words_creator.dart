@@ -42,8 +42,19 @@ class WordsCreator{
     wordIndex = random.nextInt(getAllWordsList().length - 1) ;
   }
 
-  void setSelectWord() {
-    word = getAllWordsList()[wordIndex];
+  void setSelectWord([int wordLength=7]) {
+    bool found = false;
+    int counter = 0;
+    while(!found){
+      word = getAllWordsList()[wordIndex];
+      if(word.length < wordLength) {
+        found = true;
+      }
+      setWordIndex();
+      counter++;
+    }
+    print('# Number of iteration until select word --> $counter');
+
   }
 
   void setSelectDefinition() {
